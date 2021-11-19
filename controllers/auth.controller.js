@@ -10,9 +10,10 @@ const jwt = require('jsonwebtoken')
 // models
 const User = require('../models/User')
 
-const RP_ID = 'localhost'
-const PORT = ':3000'
-const expectedOrigin = `http://${RP_ID}${PORT}`
+const RP_ID = 'webauthn.authmosis.com'
+// changed to 8080 from 3000
+const PORT = ':8080'
+const expectedOrigin = `https://${RP_ID}${PORT}`
 
 const getAttestationOptions = async (req, res) => {
   try {
@@ -41,7 +42,7 @@ const getAttestationOptions = async (req, res) => {
     }
 
     const opts = {
-      rpName: 'WebAuthnSolidJS',
+      rpName: 'Authmosis',
       rpID: RP_ID,
       userID: user._id,
       userName: user.name,
@@ -54,7 +55,8 @@ const getAttestationOptions = async (req, res) => {
       })),
       authenticatorSelection: {
         userVerification: 'preferred',
-        requireResidentKey: false
+        requireResidentKey: false,
+        authenticatorAttachment: ['platform']
       }
     }
 
