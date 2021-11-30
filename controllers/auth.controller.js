@@ -10,9 +10,9 @@ const jwt = require('jsonwebtoken')
 // models
 const User = require('../models/User')
 
-const RP_ID = 'webauthn.authmosis.com'
+const RP_ID = 'authmosis.com'
 // changed to 8080 from 3000
-const PORT = ':8080'
+const PORT = ':443'
 const expectedOrigin = `https://${RP_ID}${PORT}`
 
 const getAttestationOptions = async (req, res) => {
