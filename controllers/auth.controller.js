@@ -14,7 +14,7 @@ const RP_ID = 'authmosis.com'
 // changed to 8080 from 3000
 const PORT = ':443'
 //const expectedOrigin = `https://${RP_ID}${PORT}`
-const expectedOrigin = `https://demo.authmosis.com:443`
+const expectedOrigin = `https://demo.authmosis.com`
 
 const getAttestationOptions = async (req, res) => {
   try {
