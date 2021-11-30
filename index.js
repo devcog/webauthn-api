@@ -11,6 +11,8 @@ const db = require('./db')
 const routes = require('./router')
 
 const app = express()
+app.disable('x-powered-by');
+
 
 const PORT = process.env.PORT || 5000
 
