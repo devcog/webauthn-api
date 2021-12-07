@@ -28,7 +28,6 @@ if (HTTP_PROTO === "http://"){
 if (HTTP_PROTO !=="https://" && HTTP_PROTO!== "http://") {
   throw new Error('No HTTP Protocol is set. Check your .env variable for "HTTP_PROTO"');
 }
-console.log('expectedOrigin: ' `${expectedOrigin}`)
 
 
 const getAttestationOptions = async (req, res) => {
