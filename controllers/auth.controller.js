@@ -19,14 +19,20 @@ const RP_ID = process.env.RP_ID || 'localhost'
 const RP_PORT = process.env.RP_PORT || ''
 // The expected origin of the request. It should match where the req is coming from.
 //TODO as this is a multi-tenant app, the expected origin should be a map/array of acceptable clients origins that is pulled from DB to cache
-const expectedOrigin = `${HTTP_PROTO}${RP_ID}${RP_PORT}`
+//const expectedOrigin = `${HTTP_PROTO}${RP_ID}${RP_PORT}`
+const expectedOrigin = process.env.EXPECTED_ORIGIN
+console.log('expectedOrigin: ' + expectedOrigin);
 
-
+// lets warn if run on http, should only be done in dev
 if (HTTP_PROTO === "http://"){
-  console.warn('\x1b[31m%s\x1b[0m', 'Warning: Service defaulted on unsecured HTTP. No production flag was set in .env')
+  console.warn('\x1b[31m%s\x1b[0m', 'Warning: Service is on unsecured HTTP. Make sure to set your .env HTTP_PROTO variable')
 }
 if (HTTP_PROTO !=="https://" && HTTP_PROTO!== "http://") {
   throw new Error('No HTTP Protocol is set. Check your .env variable for "HTTP_PROTO"');
+}
+if (HTTP_PROTO !=='https://' && process.env.NODE_ENV === 'production')
+{
+  throw new Error('HTTPS must be used for production')
 }
 
 
