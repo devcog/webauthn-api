@@ -19,15 +19,16 @@ const RP_ID = process.env.RP_ID || 'localhost'
 const RP_PORT = process.env.RP_PORT || ''
 // The expected origin of the request. It should match where the req is coming from.
 //TODO as this is a multi-tenant app, the expected origin should be a map/array of acceptable clients origins that is pulled from DB to cache
-
-if (process.env.NODE_ENV === 'production'){
-  const HTTP_PROTO = 'https://'
-}
-else {
-  const HTTP_PROTO = 'http://'
-console.warn('\x1b[31m%s\x1b[0m', 'Warning: Service defaulted on unsecured HTTP. No production flag was set in .env')
-}
 const expectedOrigin = `${HTTP_PROTO}${RP_ID}${RP_PORT}`
+
+
+if (HTTP_PROTO === "http://"){
+  console.warn('\x1b[31m%s\x1b[0m', 'Warning: Service defaulted on unsecured HTTP. No production flag was set in .env')
+}
+if (HTTP_PROTO !=="https://" && HTTP_PROTO!== "http://") {
+  throw new Error('No HTTP Protocol is set. Check your .env variable for "HTTP_PROTO"');
+}
+console.log('expectedOrigin: ' `${expectedOrigin}`)
 
 
 const getAttestationOptions = async (req, res) => {
