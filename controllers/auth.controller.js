@@ -7,14 +7,28 @@ const {
 const base64url = require('base64url')
 const jwt = require('jsonwebtoken')
 
-// models
+// mongoose models
 const User = require('../models/User')
 
-const RP_ID = 'authmosis.com'
-// changed to 8080 from 3000
-const PORT = ':443'
-//const expectedOrigin = `https://${RP_ID}${PORT}`
-const expectedOrigin = `https://demo.authmosis.com`
+const HTTP_PROTO = process.env.HTTP_PROTO
+const RP_ID = process.env.RP_ID || 'localhost'
+
+// RP_ID_PORT must match the incoming request, also in prod env i.e. GCP Cloudrun no port is needed since it is not visible in the req frwd
+// having one included will cause a mismatch and fail the assertion
+// make sure to include the semicolon : in rp id port
+const RP_PORT = process.env.RP_PORT || ''
+// The expected origin of the request. It should match where the req is coming from.
+//TODO as this is a multi-tenant app, the expected origin should be a map/array of acceptable clients origins that is pulled from DB to cache
+
+if (process.env.NODE_ENV === 'production'){
+  const HTTP_PROTO = 'https://'
+}
+else {
+  const HTTP_PROTO = 'http://'
+console.warn('\x1b[31m%s\x1b[0m', 'Warning: Service defaulted on unsecured HTTP. No production flag was set in .env')
+}
+const expectedOrigin = `${HTTP_PROTO}${RP_ID}${RP_PORT}`
+
 
 const getAttestationOptions = async (req, res) => {
   try {

@@ -17,6 +17,14 @@ const UserSchema = new mongoose.Schema({
     type: Boolean,
     required: true
   },
+  originURL: {
+    type: String,
+    required: false
+  },
+  userConsent:{
+    type: String,
+    required: false
+  },
   devices: [
     {
       credentialID: Buffer,
