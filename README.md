@@ -1,3 +1,5 @@
+!!!Do not use in production. This is a proof of concept and has known issues.!!!
+
 This deployment is to run on GCP Cloudrun.
 The following must be set as env vars in the cloudrun setup for this to work:
 -  DB_URL={mongo_db_connection_string}
