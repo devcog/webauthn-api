@@ -63,7 +63,7 @@ const getAttestationOptions = async (req, res) => {
     }
 
     const opts = {
-      rpName: 'Authmosis',
+      rpName: 'Authmo',
       rpID: RP_ID,
       userID: user._id,
       userName: user.name,
@@ -107,7 +107,7 @@ const getAttestationOptionsForExistingUser = async (req, res) => {
     let user = existingUser
 
     const opts = {
-      rpName: 'WebAuthnSolidJS',
+      rpName: 'Authmo',
       rpID: RP_ID,
       userID: user._id,
       userName: user.name,
@@ -216,9 +216,7 @@ const getAssertionOptions = async (req, res) => {
     user.currentChallenge = options.challenge
     await user.save()
 
-    res
-      .status(200)
-      .json({ success: true, data: { assertionOptions: options, userId: user._id } })
+    res.status(200).json({ success: true, data: { assertionOptions: options, userId: user._id } })
   } catch (err) {
     console.log(err)
     return res.status(500).json({ success: false, error: err.message })
