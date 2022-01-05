@@ -16,7 +16,11 @@ app.disable('x-powered-by');
 
 const PORT = process.env.PORT || 8089
 
-app.use(cors())
+app.use(cors(
+    {
+    origin: 'https://demo.authmosis.com'
+    }
+))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
